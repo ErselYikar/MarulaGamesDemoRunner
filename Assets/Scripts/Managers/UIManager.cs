@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private GameObject _swipeGroup;
+
+    private void OnEnable()
     {
-        
+        GameManager.Instance.OnGameStateChange += EnableDisableSwipeGroup;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        GameManager.Instance.OnGameStateChange -= EnableDisableSwipeGroup;
+    }
+
+    private void EnableDisableSwipeGroup(GameState newState)
+    {
+        _swipeGroup.SetActive(GameManager.Instance.state == GameState.Ready);
     }
 }
