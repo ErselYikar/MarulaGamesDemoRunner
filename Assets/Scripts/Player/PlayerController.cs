@@ -37,12 +37,19 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _playerInput.TouchMovement.Touch.started += ctx => TouchStarted(ctx);
+        _playerInput.TouchMovement.Touch.started += ctx => FirstTouch(ctx);
         _playerInput.TouchMovement.Touch.canceled += ctx => TouchEnded(ctx);
     }
 
     private void Update()
     {
         MovePlayer();
+    }
+
+    private void FirstTouch(InputAction.CallbackContext context)
+    {
+        GameManager.Instance.UpdateGameState(GameState.Run);
+        _playerInput.TouchMovement.Touch.started -= ctx => FirstTouch(ctx);
     }
 
     private void TouchStarted(InputAction.CallbackContext context)
@@ -57,13 +64,33 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
-        //float _rotation;
-        if (_isTouching)
+        if (GameManager.Instance.state == GameState.Run)
         {
-            float _strafeDelta = _playerInput.TouchMovement.Delta.ReadValue<Vector2>().x;
-            _characterController.Move(transform.right * _strafeDelta * _strafeSpeed * Time.deltaTime);
-            
-            /*if(_strafeDelta == 0)
+            //float _rotation;
+            if (_isTouching)
+            {
+                float _strafeDelta = _playerInput.TouchMovement.Delta.ReadValue<Vector2>().x;
+                _characterController.Move(transform.right * _strafeDelta * _strafeSpeed * Time.deltaTime);
+
+                /*if(_strafeDelta == 0)
+                {
+                    _rotation = transform.rotation.eulerAngles.y;
+                    if(_rotation != 0)
+                    {
+                        var _fixAmount = _yRotateLimit * Time.deltaTime;
+                        if (_rotation < 180) _fixAmount *= -1;
+                        transform.Rotate(0, _fixAmount, 0);
+                    }
+                }
+                else
+                {
+                    transform.Rotate(0, _strafeDelta * _yRotateLimit * Time.deltaTime, 0);
+                    _rotation = transform.rotation.eulerAngles.y;
+                    if (_rotation > 180) _rotation -= 360;
+                    transform.rotation = Quaternion.Euler(transform.rotation.x, Mathf.Clamp(_rotation, -_yRotateLimit, _yRotateLimit), transform.rotation.eulerAngles.z);
+                }*/
+            }
+            /*else
             {
                 _rotation = transform.rotation.eulerAngles.y;
                 if(_rotation != 0)
@@ -72,29 +99,12 @@ public class PlayerController : MonoBehaviour
                     if (_rotation < 180) _fixAmount *= -1;
                     transform.Rotate(0, _fixAmount, 0);
                 }
-            }
-            else
-            {
-                transform.Rotate(0, _strafeDelta * _yRotateLimit * Time.deltaTime, 0);
-                _rotation = transform.rotation.eulerAngles.y;
-                if (_rotation > 180) _rotation -= 360;
-                transform.rotation = Quaternion.Euler(transform.rotation.x, Mathf.Clamp(_rotation, -_yRotateLimit, _yRotateLimit), transform.rotation.eulerAngles.z);
             }*/
-        }
-        /*else
-        {
-            _rotation = transform.rotation.eulerAngles.y;
-            if(_rotation != 0)
-            {
-                var _fixAmount = _yRotateLimit * Time.deltaTime;
-                if (_rotation < 180) _fixAmount *= -1;
-                transform.Rotate(0, _fixAmount, 0);
-            }
-        }*/
 
-        //_characterController.Move(transform.forward * _zAxisSpeed * Time.deltaTime);
-        var position = transform.position;
-        position.x = Mathf.Clamp(position.x, _leftXClamp, _rightXClamp);
-        transform.position = position;
+            _characterController.Move(transform.forward * _zAxisSpeed * Time.deltaTime);
+            var position = transform.position;
+            position.x = Mathf.Clamp(position.x, _leftXClamp, _rightXClamp);
+            transform.position = position;
+        }
     }
 }
