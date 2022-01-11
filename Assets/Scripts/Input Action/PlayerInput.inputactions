@@ -1,0 +1,71 @@
+{
+    "name": "PlayerInput",
+    "maps": [
+        {
+            "name": "TouchMovement",
+            "id": "2ec3b8ce-74d9-4d08-bc28-1c692976cfbc",
+            "actions": [
+                {
+                    "name": "Touch",
+                    "type": "Button",
+                    "id": "56fab8da-f5c5-4642-9536-bc9e5d3f5c19",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)"
+                },
+                {
+                    "name": "Delta",
+                    "type": "Value",
+                    "id": "beb1b547-b67e-4943-afb7-e61651a3eb61",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)"
+                },
+                {
+                    "name": "Position",
+                    "type": "Value",
+                    "id": "dda97dd6-efe7-4d4a-9da7-ec26147c4820",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)"
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "61075de5-eee5-4067-88a6-4f4add4e67f8",
+                    "path": "<Touchscreen>/primaryTouch/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "037ac87b-1da3-4ac2-ad54-c8cdf9bd2a6c",
+                    "path": "<Touchscreen>/primaryTouch/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Delta",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "343eb534-7506-480b-8d57-ca02a3b1faf1",
+                    "path": "<Touchscreen>/primaryTouch/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
