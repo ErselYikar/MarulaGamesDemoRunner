@@ -13,24 +13,31 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   obstacle025StartingCoordinates:
-  - {x: -2, y: 1, z: 25}
-  - {x: -1, y: 1, z: 30}
-  - {x: 0, y: 1, z: 35}
-  - {x: 1, y: 1, z: 40}
-  - {x: 2, y: 1, z: 45}
+  - {x: -1, y: 1, z: 31}
+  - {x: 2, y: 1, z: 5}
+  - {x: 2, y: 1, z: 7}
+  - {x: -2, y: 1, z: 28}
+  - {x: -1, y: 1, z: 28}
+  - {x: 1, y: 1, z: 28}
+  - {x: 2, y: 1, z: 28}
   obstacle05StartingCoordinates:
   - {x: 1, y: 1, z: 17}
   - {x: -1, y: 1, z: 21}
+  - {x: -2, y: 1, z: 9}
+  - {x: 2, y: 1, z: 9}
+  - {x: -1, y: 1, z: 17}
+  - {x: 1, y: 1, z: 21}
   collectibleStartingCoordinates:
   - {x: -2, y: 1, z: 5}
-  - {x: -1, y: 1, z: 7}
-  - {x: 0, y: 1, z: 9}
-  - {x: 1, y: 1, z: 11}
-  - {x: 2, y: 1, z: 13}
-  - {x: 2, y: 1, z: 15}
+  - {x: -2, y: 1, z: 7}
+  - {x: 0, y: 1, z: 13}
+  - {x: 0, y: 1, z: 15}
   - {x: 0, y: 1, z: 19}
   - {x: -2, y: 1, z: 23}
   - {x: 2, y: 1, z: 25}
-  - {x: 1, y: 1, z: 30}
-  - {x: -1, y: 1, z: 40}
-  - {x: -2, y: 1, z: 45}
+  - {x: 1, y: 1, z: 31}
+  - {x: 0, y: 1, z: 11}
+  - {x: 2, y: 1, z: 23}
+  - {x: 0, y: 1, z: 35}
+  - {x: 0, y: 1, z: 37}
+  - {x: -2, y: 1, z: 25}

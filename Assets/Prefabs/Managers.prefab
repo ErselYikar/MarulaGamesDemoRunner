@@ -45,6 +45,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levels:
   - {fileID: 11400000, guid: a43bb5a727edd484e9a082cba0478fcf, type: 2}
+  - {fileID: 11400000, guid: bc9c8ea86032cf442862f98124b1f078, type: 2}
+  _player: {fileID: 0}
 --- !u!1 &5238159565221200166
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,13 +90,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6e6eee00dcd8d468a75f2ebe64efa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _obstacle025: {fileID: 4447567773379978403, guid: b9518ae847ae0b84cba8c55a46ba5ad8, type: 3}
+  _obstacle025: {fileID: 7531573072124621574, guid: 4e5c88085c5be0e42b6a9ea81362508c, type: 3}
   _obstacle025Pool: []
   _obstacle025Count: 15
-  _obstacle05: {fileID: 275960496947890684, guid: 99685399c697f244b946f79cb1455b2f, type: 3}
+  _obstacle05: {fileID: 886126436464149230, guid: 9d9a2dd82caf72141ac06316be74d95d, type: 3}
   _obstacle05Pool: []
   _obstacle05Count: 15
-  _collectible: {fileID: 212985884150181380, guid: 90640d75d1bb9814d8451666402caffc, type: 3}
+  _collectible: {fileID: 4417960749967559364, guid: f20d237247a1a5d4691fdd6ee5988c63, type: 3}
   _collectiblePool: []
   _collectibleCount: 15
 --- !u!1 &5358134031152449215
@@ -141,6 +143,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _swipeGroup: {fileID: 0}
+  _retryButton: {fileID: 0}
+  _mainMenu: {fileID: 0}
+  _nextButton: {fileID: 0}
+  _levelGroup: {fileID: 0}
+  _coinGroup: {fileID: 0}
+  _score: {fileID: 0}
+  _yScale: {fileID: 0}
+  _multiplication: {fileID: 0}
+  _sum: {fileID: 0}
+  _newScore: {fileID: 0}
 --- !u!1 &5358134032132321097
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,6 +196,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ac8c45446f5884e9103c14951b690b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _score: 0
+  _currentScore: 0
   state: 0
   _currentlevel: 1
 --- !u!1 &6038031077898304962

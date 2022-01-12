@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public float _currentScore = 0;
 
     public GameState state;
-    public int _currentlevel = 1;
+    public int _currentlevel;
 
     private GameObject _player;
 
@@ -33,9 +33,14 @@ public class GameManager : MonoBehaviour
         }
 
         _player = FindObjectOfType<PlayerController>().gameObject;
-
-        PlayerPrefs.GetInt("score");
-        PlayerPrefs.GetInt("current level");
+        if(PlayerPrefs.HasKey("current level"))
+        {
+            _currentlevel = PlayerPrefs.GetInt("current level");
+        }
+        if (PlayerPrefs.HasKey("score"))
+        {
+            _score = PlayerPrefs.GetFloat("score");
+        }
     }
 
     private void OnEnable()
@@ -50,7 +55,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        UpdateGameState(GameState.Pooling);
+        UpdateGameState(GameState.Start);
     }
 
     public void UpdateGameState(GameState newState)
@@ -59,6 +64,8 @@ public class GameManager : MonoBehaviour
 
         switch (newState)
         {
+            case GameState.Start:
+                break;
             case GameState.Pooling:
                 break;
             case GameState.GenerateLevel:
@@ -69,9 +76,13 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Calculations:
                 break;
+            case GameState.CalculationsDone:
+                break;
             case GameState.Finish:
                 break;
             case GameState.Fail:
+                break;
+            case GameState.FailDone:
                 break;
         }
 
@@ -83,11 +94,12 @@ public class GameManager : MonoBehaviour
     {
         if(newState == GameState.Calculations)
         {
-            _currentScore = _score;
-            _score += _currentScore + _player.transform.localScale.y * 10;
+            _currentScore = (_player.transform.localScale.y * 10);
+            _score += _currentScore;
             PlayerPrefs.SetFloat("score", _score);
             PlayerPrefs.SetFloat("currentScore", _currentScore);
             PlayerPrefs.Save();
+            UpdateGameState(GameState.CalculationsDone);
         }
     }
 
@@ -96,6 +108,8 @@ public class GameManager : MonoBehaviour
         _currentlevel++;
         PlayerPrefs.SetInt("current level", _currentlevel);
         PlayerPrefs.Save();
+        UpdateGameState(GameState.GenerateLevel);
+        
     }
 
     public void RestartLevel()
@@ -109,11 +123,14 @@ public class GameManager : MonoBehaviour
 
 public enum GameState
 {
+    Start,
     Pooling,
     GenerateLevel,
     Ready,
     Run,
     Calculations,
+    CalculationsDone,
     Finish,
-    Fail
+    Fail,
+    FailDone
 }

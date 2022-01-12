@@ -12,8 +12,6 @@ GameObject:
   - component: {fileID: 1968783850826366304}
   - component: {fileID: 1968783850826366305}
   - component: {fileID: 1968783850826366306}
-  - component: {fileID: 1968783850826366310}
-  - component: {fileID: 1968783850826366309}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -96,39 +94,4 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1968783850826366310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1968783850826366307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c0d001f040caea4daed4af9499be768, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _zAxisSpeed: 5
-  _leftXClamp: -2
-  _rightXClamp: 2
-  _strafeSpeed: 0.25
-  _yRotateLimit: 20
---- !u!143 &1968783850826366309
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1968783850826366307}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 1
-  m_Radius: 0.5
-  m_SlopeLimit: 0
-  m_StepOffset: 0
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}

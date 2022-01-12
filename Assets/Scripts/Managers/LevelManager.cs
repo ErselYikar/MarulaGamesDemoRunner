@@ -14,22 +14,22 @@ public class LevelManager : MonoBehaviour
     private void OnEnable()
     {
         GameManager.Instance.OnGameStateChange += GenerateLevel;
-        GameManager.Instance.OnGameStateChange += ClearLevel;
     }
 
     private void OnDisable()
     {
         GameManager.Instance.OnGameStateChange -= GenerateLevel;
-        GameManager.Instance.OnGameStateChange -= ClearLevel;
     }
 
     private void GenerateLevel(GameState newState)
     {
         if(newState == GameState.GenerateLevel)
         {
-            _currentLevel = _levels[(GameManager.Instance._currentlevel - 1) & _levels.Count];
+            _currentLevel = _levels[(GameManager.Instance._currentlevel - 1) % _levels.Count];
+            ClearLevel();
             GenerateObstacles();
             GenerateCollectibles();
+            ReturnPlayerToInitial();
             CheckGenerationsAreDone();
         }
     }
@@ -82,14 +82,11 @@ public class LevelManager : MonoBehaviour
         _player.transform.localScale = new Vector3(1, 1, 1);
     }
 
-    public void ClearLevel(GameState newState)
+    public void ClearLevel()
     {
-        if(newState == GameState.Fail)
-        {
-            ClearCollectibles();
-            ClearObstacles();
-            ReturnPlayerToInitial();
-        }
+        ClearCollectibles();
+        ClearObstacles();
+        ReturnPlayerToInitial();
     }
 
     private void CheckGenerationsAreDone()
