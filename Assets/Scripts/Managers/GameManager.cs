@@ -13,8 +13,12 @@ public class GameManager : MonoBehaviour
     public event LevelChange OnNextLevel;
     public event LevelChange OnRestartLevel;
 
+    public int _score = 0;
+
     public GameState state;
     public int _currentlevel = 1;
+
+    private GameObject _player;
 
     private void Awake()
     {
@@ -26,6 +30,21 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        _player = FindObjectOfType<PlayerController>().gameObject;
+
+        PlayerPrefs.GetInt("score");
+        PlayerPrefs.GetInt("current level");
+    }
+
+    private void OnEnable()
+    {
+        OnGameStateChange += CalculateScore;
+    }
+
+    private void OnDisable()
+    {
+        OnGameStateChange -= CalculateScore;
     }
 
     private void Start()
@@ -47,6 +66,8 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Run:
                 break;
+            case GameState.Calculations:
+                break;
             case GameState.Finish:
                 break;
             case GameState.Fail:
@@ -57,20 +78,28 @@ public class GameManager : MonoBehaviour
         Debug.Log(state);
     }
 
+    private void CalculateScore(GameState newState)
+    {
+        if(newState == GameState.Calculations)
+        {
+            _score += Mathf.RoundToInt(_player.transform.localScale.y * 10);
+            PlayerPrefs.SetInt("score", _score);
+            PlayerPrefs.Save();
+        }
+    }
+
     public void NextLevel()
     {
         _currentlevel++;
-        if(OnNextLevel != null)
-        {
-            OnNextLevel();
-        }
+        PlayerPrefs.SetInt("current level", _currentlevel);
+        PlayerPrefs.Save();
     }
 
     public void RestartLevel()
     {
-        if(OnRestartLevel != null)
+        if(state == GameState.Fail)
         {
-            OnRestartLevel();
+            UpdateGameState(GameState.GenerateLevel);
         }
     }
 }
@@ -81,6 +110,7 @@ public enum GameState
     GenerateLevel,
     Ready,
     Run,
+    Calculations,
     Finish,
     Fail
 }

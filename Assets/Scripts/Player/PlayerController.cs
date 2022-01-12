@@ -48,8 +48,11 @@ public class PlayerController : MonoBehaviour
 
     private void FirstTouch(InputAction.CallbackContext context)
     {
-        GameManager.Instance.UpdateGameState(GameState.Run);
-        _playerInput.TouchMovement.Touch.started -= ctx => FirstTouch(ctx);
+        if(GameManager.Instance.state == GameState.Ready)
+        {
+            GameManager.Instance.UpdateGameState(GameState.Run);
+            _playerInput.TouchMovement.Touch.started -= ctx => FirstTouch(ctx);
+        }
     }
 
     private void TouchStarted(InputAction.CallbackContext context)

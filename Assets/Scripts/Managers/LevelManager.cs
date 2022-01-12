@@ -1,22 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private List<Level> _levels;
+    [SerializeField] private GameObject _player;
     private Level _currentLevel;
-    private List<bool> _generationCheckers = new List<bool>();
-    private List<bool> _doneCheckers = new List<bool>();
+    private List<GameObject> _obstacles = new List<GameObject>();
+    private List<GameObject> _collectibles = new List<GameObject>();
 
     private void OnEnable()
     {
         GameManager.Instance.OnGameStateChange += GenerateLevel;
+        GameManager.Instance.OnGameStateChange += ClearLevel;
     }
 
     private void OnDisable()
     {
         GameManager.Instance.OnGameStateChange -= GenerateLevel;
+        GameManager.Instance.OnGameStateChange -= ClearLevel;
     }
 
     private void GenerateLevel(GameState newState)
@@ -43,9 +47,6 @@ public class LevelManager : MonoBehaviour
             GameObject obstacle05 = ObjectPool.Instance.RequestObstacle05();
             obstacle05.transform.position = _currentLevel.obstacle05StartingCoordinates[i];
         }
-
-        bool obstacleGenerationDone = true;
-        _generationCheckers.Add(obstacleGenerationDone);
     }
 
     private void GenerateCollectibles()
@@ -55,25 +56,44 @@ public class LevelManager : MonoBehaviour
             GameObject collectible = ObjectPool.Instance.RequestCollectible();
             collectible.transform.position = _currentLevel.collectibleStartingCoordinates[i];
         }
+    }
 
-        bool collectibleGenerationDone = true;
-        _generationCheckers.Add(collectibleGenerationDone);
+    private void ClearObstacles()
+    {
+        _obstacles = GameObject.FindGameObjectsWithTag("Obstacle").ToList();
+        foreach(GameObject obstacle in _obstacles)
+        {
+            obstacle.SetActive(false);
+        }
+    }
+
+    private void ClearCollectibles()
+    {
+        _collectibles = GameObject.FindGameObjectsWithTag("Collectible").ToList();
+        foreach(GameObject collectible in _collectibles)
+        {
+            collectible.SetActive(false);
+        }
+    }
+
+    private void ReturnPlayerToInitial()
+    {
+        _player.transform.position = Vector3.zero;
+        _player.transform.localScale = new Vector3(1, 1, 1);
+    }
+
+    public void ClearLevel(GameState newState)
+    {
+        if(newState == GameState.Fail)
+        {
+            ClearCollectibles();
+            ClearObstacles();
+            ReturnPlayerToInitial();
+        }
     }
 
     private void CheckGenerationsAreDone()
     {
-        
-        foreach(bool checker in _generationCheckers)
-        {
-            if (checker == true)
-            {
-                _doneCheckers.Add(checker);
-            }
-        }
-
-        if(_doneCheckers.Count == _generationCheckers.Count)
-        {
-            GameManager.Instance.UpdateGameState(GameState.Ready);
-        }
+        GameManager.Instance.UpdateGameState(GameState.Ready);
     }
 }
