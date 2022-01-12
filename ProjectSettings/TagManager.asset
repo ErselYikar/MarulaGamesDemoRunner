@@ -7,6 +7,9 @@ TagManager:
   - Obstacle025 Container
   - Obstacle05 Container
   - Collectible Container
+  - Obstacle
+  - Collectible
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -14,7 +17,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Interactible
   - 
   - 
   - 
