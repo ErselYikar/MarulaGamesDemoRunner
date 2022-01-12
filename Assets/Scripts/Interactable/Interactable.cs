@@ -3,6 +3,7 @@ using UnityEngine;
 public abstract class Interactable : MonoBehaviour
 {
     [SerializeField] protected float _yScaleChange;
+    [SerializeField] protected ParticleSystem _particle;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -19,5 +20,10 @@ public abstract class Interactable : MonoBehaviour
         {
             GameManager.Instance.UpdateGameState(GameState.Fail);
         }
+    }
+
+    private void ParticleCoroutine()
+    {
+
     }
 }
