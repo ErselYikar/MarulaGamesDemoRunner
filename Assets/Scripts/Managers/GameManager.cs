@@ -8,7 +8,13 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public Action<GameState> OnGameStateChange;
+
+    public delegate void LevelChange();
+    public event LevelChange OnNextLevel;
+    public event LevelChange OnRestartLevel;
+
     public GameState state;
+    public int _currentlevel = 1;
 
     private void Awake()
     {
@@ -24,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        UpdateGameState(GameState.Ready);
+        UpdateGameState(GameState.Pooling);
     }
 
     public void UpdateGameState(GameState newState)
@@ -33,6 +39,10 @@ public class GameManager : MonoBehaviour
 
         switch (newState)
         {
+            case GameState.Pooling:
+                break;
+            case GameState.GenerateLevel:
+                break;
             case GameState.Ready:
                 break;
             case GameState.Run:
@@ -44,11 +54,31 @@ public class GameManager : MonoBehaviour
         }
 
         OnGameStateChange?.Invoke(newState);
+        Debug.Log(state);
+    }
+
+    public void NextLevel()
+    {
+        _currentlevel++;
+        if(OnNextLevel != null)
+        {
+            OnNextLevel();
+        }
+    }
+
+    public void RestartLevel()
+    {
+        if(OnRestartLevel != null)
+        {
+            OnRestartLevel();
+        }
     }
 }
 
 public enum GameState
 {
+    Pooling,
+    GenerateLevel,
     Ready,
     Run,
     Finish,

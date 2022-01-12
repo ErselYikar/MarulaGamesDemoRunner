@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
 
     private void EnableDisableSwipeGroup(GameState newState)
     {
-        _swipeGroup.SetActive(GameManager.Instance.state == GameState.Ready);
+        newState = GameManager.Instance.state;
+        _swipeGroup.SetActive(newState == GameState.Ready);
     }
 }
