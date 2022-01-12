@@ -13,7 +13,8 @@ public class GameManager : MonoBehaviour
     public event LevelChange OnNextLevel;
     public event LevelChange OnRestartLevel;
 
-    public int _score = 0;
+    public float _score = 0;
+    public float _currentScore = 0;
 
     public GameState state;
     public int _currentlevel = 1;
@@ -82,8 +83,10 @@ public class GameManager : MonoBehaviour
     {
         if(newState == GameState.Calculations)
         {
-            _score += Mathf.RoundToInt(_player.transform.localScale.y * 10);
-            PlayerPrefs.SetInt("score", _score);
+            _currentScore = _score;
+            _score += _currentScore + _player.transform.localScale.y * 10;
+            PlayerPrefs.SetFloat("score", _score);
+            PlayerPrefs.SetFloat("currentScore", _currentScore);
             PlayerPrefs.Save();
         }
     }
